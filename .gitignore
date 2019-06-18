@@ -1,3 +1,4 @@
 # Don't trach contents of thesr folders
 .idea/
 *.iml
+out/

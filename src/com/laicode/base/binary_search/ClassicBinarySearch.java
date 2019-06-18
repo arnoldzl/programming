@@ -17,7 +17,28 @@ What if A is null or A is of zero length? We should return -1 in this case.
  */
 public class ClassicBinarySearch {
 
-    public int binarySearch(int[] array, int target) {
-        return 0;
+    private static int binarySearch(int[] array, int target) {
+        if (array == null || array.length == 0) {
+            return -1;
+        }
+        int left = 0, right = array.length -1;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (array[mid] == target) {
+                return mid;
+            } else if (array[mid] > target) {
+                right = mid - 1;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return -1;
+    }
+
+    public static void main(String[] args) {
+        int[] array = new int[]{3,4,5,6,6,9,16};
+        int target = 5;
+        int result = binarySearch(array, target);
+        System.out.println(result);
     }
 }
