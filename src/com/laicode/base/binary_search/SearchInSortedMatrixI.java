@@ -21,6 +21,14 @@ target = 6, return {-1, -1} to represent the target number does not exist in the
 public class SearchInSortedMatrixI {
 
     static int[] search(int[][] matrix, int target) {
+        // Consider 2D matrix as an array
+        int cols = matrix.length;
+        int rows = matrix[0].length;
+        int[] result = new int[]{-1,-1};
+        int left = 0, right = cols * rows -1;
+        while (left <= right) {
+
+        }
         return new int[]{-1,-1};
     }
 }
