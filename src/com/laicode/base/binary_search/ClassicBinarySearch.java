@@ -17,7 +17,7 @@ What if A is null or A is of zero length? We should return -1 in this case.
  */
 public class ClassicBinarySearch {
 
-    private static int binarySearch(int[] array, int target) {
+    static int binarySearch(int[] array, int target) {
         if (array == null || array.length == 0) {
             return -1;
         }
