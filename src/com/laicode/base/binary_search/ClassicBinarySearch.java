@@ -23,7 +23,7 @@ public class ClassicBinarySearch {
         }
         int left = 0, right = array.length -1;
         while (left <= right) {
-            int mid = left + (right - left) / 2;
+            int mid = (left + right) >>> 1;
             if (array[mid] == target) {
                 return mid;
             } else if (array[mid] > target) {

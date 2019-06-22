@@ -1,5 +1,8 @@
 package com.laicode.base.binary_search;
 
+import java.util.Collection;
+import java.util.Collections;
+
 /*
 Given a 2D matrix that contains integers only, which each row is sorted in an ascending order.
 The first element of next row is larger than (or equal to) the last element of previous row.
@@ -29,7 +32,7 @@ public class SearchInSortedMatrixI {
         int cols = matrix[0].length;
         int left = 0, right = cols * rows -1;
         while (left <= right) {
-            int mid = left + (right - left) / 2;
+            int mid = (left + right) >>> 1;
             int row = mid / cols;
             int col = mid % cols;
             if (matrix[row][col] == target) {
@@ -45,23 +48,40 @@ public class SearchInSortedMatrixI {
 
     static int[] searchII(int[][] matrix, int target) {
         // search row first, then search col
+        int[] result = new int[]{ -1, -1 };
         if (matrix.length == 0 || matrix[0].length == 0) {
-            return new int[]{ -1, -1 };
+            return result;
         }
-        int rows = matrix.length; // 0~rows-1 is index
-        int up = 0, down = rows - 1;
-        while (up < down) { // target should fall in up row
-            int mid = up + (down - up) / 2;
-            if (matrix[mid][0] <= target && matrix[mid + 1][0] > target) {
-                int col = ClassicBinarySearch.binarySearch(matrix[mid], target);
-                return new int[]{mid, col};
-            } else if (matrix[mid][0] > target) {
-                down = mid;
+        int row = findRow(matrix, target);
+        if (row == -1) {
+            System.out.println("Not find");
+            return result;
+        }
+        int col = findCol(matrix[row], target);
+        if (col == -1) {
+            System.out.println("Not find");
+            return result;
+        }
+        result[0] = row;
+        result[1] = col;
+        return result;
+    }
+
+    private static int findRow(int[][] matrix, int target) {
+        int up = 0, down = matrix.length - 1;
+        while (up <= down) {
+            int mid = (up + down) >>> 1;
+            if (matrix[mid][0] <= target) {
+                up = mid + 1;
             } else {
-                up = mid;
+                down = mid - 1;
             }
         }
-        return new int[]{ -1, -1 };
+        return down;
+    }
+
+    private static int findCol(int[] array, int target) {
+        return ClassicBinarySearch.binarySearch(array, target);
     }
 
 
@@ -69,5 +89,6 @@ public class SearchInSortedMatrixI {
     public static void main(String[] args) {
         int[][] matrix = new int[][]{{1,2,3},{4,5,7},{8,9,10},{12,14,16}};
         System.out.println(matrix.length);
+        System.out.println((1 + Integer.MAX_VALUE) >>> 1);
     }
 }
