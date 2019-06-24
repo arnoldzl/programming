@@ -36,6 +36,9 @@ public class KClosestInSortedArray {
     }
 
     public static void main(String[] args) {
-        System.out.println(kClosest(new int[]{1,5}, 2, 10));
+        int[] result = kClosest(new int[]{1,2,3,4,5}, 4, -1);
+        for (int i: result) {
+            System.out.print(i + " ");
+        }
     }
 }
