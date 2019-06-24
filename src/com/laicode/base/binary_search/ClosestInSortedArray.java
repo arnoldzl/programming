@@ -19,11 +19,7 @@ What if A is null or A is of zero length? We should return -1 in this case.
  */
 public class ClosestInSortedArray {
 
-    static int findClosest(int[] array, int target) {
-        // closest, return left and right. check which is smaller
-        if (array == null || array.length == 0) {
-            return -1;
-        }
+    static int[] findClosestLeftAndRight(int[] array, int target) {
         int left = 0, right = array.length - 1;
         while (left < right - 1) {
             int mid = (left + right) >>> 1;
@@ -33,11 +29,24 @@ public class ClosestInSortedArray {
                 right = mid;
             }
         }
-        if ((target - array[left]) <= (array[right] - target)) {
-            return left;
+        return new int[]{left, right};
+    }
+
+    static int closest(int a, int b, int[] array, int target) {
+        if ((target - array[a]) <= array[b] - target) {
+            return a;
         } else {
-            return right;
+            return b;
         }
+    }
+
+    static int findClosest(int[] array, int target) {
+        // closest, return left and right. check which is smaller
+        if (array == null || array.length == 0) {
+            return -1;
+        }
+        int[] closestTwoIndex = findClosestLeftAndRight(array, target);
+        return closest(closestTwoIndex[0], closestTwoIndex[1], array, target);
     }
 
     public static void main(String[] args) {
