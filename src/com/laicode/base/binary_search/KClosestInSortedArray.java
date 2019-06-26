@@ -23,19 +23,28 @@ public class KClosestInSortedArray {
 
     static int[] kClosest(int[] array, int k, int target) {
         // find target's index in O(log n), find k in O(k)
+        int[] result = new int[k];
         int[] closestIndex = ClosestInSortedArray.findClosestLeftAndRight(array, target);
         int i = closestIndex[0], j = closestIndex[1];
+        int l = 0;
+        if (k == 1) {
+            result[0] = array[i];
+            return result;
+        }
         while ((j - i + 1) < k) {
             if (j >= array.length || i > 0 && ((target - array[i]) <= (array[j] - target)) ) {
-                i--;
+                result[l++] = array[i--];
             } else {
-                j++;
+                result[l++] = array[j++];
             }
         }
-        return Arrays.copyOfRange(array, i, j+1);
+        return result;
     }
 
     public static void main(String[] args) {
-        System.out.println(kClosest(new int[]{1,5}, 2, 10));
+        int[] result = kClosest(new int[]{1,5}, 1, 0);
+        for (int i: result) {
+            System.out.print(i + " ");
+        }
     }
 }
