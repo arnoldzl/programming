@@ -24,27 +24,43 @@ public class KClosestInSortedArray {
     static int[] kClosest(int[] array, int k, int target) {
         // find target's index in O(log n), find k in O(k)
         int[] result = new int[k];
-        int[] closestIndex = ClosestInSortedArray.findClosestLeftAndRight(array, target);
-        int i = closestIndex[0], j = closestIndex[1];
-        int l = 0;
-        if (k == 1) {
-            result[0] = array[i];
-            return result;
-        }
-        while ((j - i + 1) < k) {
-            if (j >= array.length || i > 0 && ((target - array[i]) <= (array[j] - target)) ) {
-                result[l++] = array[i--];
+        int left = largestSmallest(array, target);
+        int right = left + 1;
+        for (int i = 0; i < k; i++) {
+            // left-- condition: right > array.length -1 or left >= 0 and (target - a[left]) < (a[right] - target)
+            if (right >= array.length || left >= 0 && (target - array[left]) < (array[right] - target)) {
+                result[i] = array[left--];
             } else {
-                result[l++] = array[j++];
+                result[i] = array[right++];
             }
         }
         return result;
     }
 
-    public static void main(String[] args) {
-        int[] result = kClosest(new int[]{1,5}, 1, 0);
-        for (int i: result) {
-            System.out.print(i + " ");
+    static int largestSmallest(int[] array, int target) {
+        int left = 0, right = array.length - 1;
+        while (left < right - 1) {
+            int mid = (left + right) >>> 1;
+            if (array[mid] >= target) {
+                right = mid;
+            } else {
+                left = mid;
+            }
         }
+        if (array[right] <= target) {
+            return right;
+        } else if (array[left] <= target) {
+            return left;
+        }
+        return -1;
+    }
+
+    public static void main(String[] args) {
+//        int[] result = kClosest(new int[]{1,2,2,2,2,2}, 1, 2);
+        int result = largestSmallest(new int[]{1,2,2,2,2}, 2);
+//        for (int i: result) {
+//            System.out.print(i + " ");
+//        }
+        System.out.println(result);
     }
 }
