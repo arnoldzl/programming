@@ -4,45 +4,53 @@ import java.util.Arrays;
 
 public class MergeSort {
 
-    private int[] sort(int[] array) {
-        if (array == null || array.length == 0) {
-            return array;
-        }
-        int[] helper = new int[array.length];
-        helper(array, helper, 0, array.length - 1);
-        return array;
+    public static int[] sort(int[] arr) {
+
+        // null check
+        int len = arr.length;
+        int[] tmp = new int[len];
+        helper(arr, tmp, 0, len - 1);
+
+        return arr;
     }
 
-    private void helper(int[] array, int[] helper, int i, int j) {
-        if (i >= j) {
-            return;
-        }
+    static void helper(int[] arr, int[] tmp, int i, int j) {
+        if (i >= j) return;
         int mid = i + (j - i) / 2;
-        helper(array, helper, i, mid);
-        helper(array, helper, mid + 1, j);
-        merge(array, helper, i, mid, j);
+        helper(arr, tmp, i, mid);
+        helper(arr, tmp, mid + 1, j);
+        merge(arr, tmp, i, mid, j);
     }
 
-    private void merge(int[] array, int[] helper, int left, int mid, int right) {
-        // put all elements in helper array
-        if (right + 1 - left >= 0) System.arraycopy(array, left, helper, left, right + 1 - left);
-        // merge
+
+    /**
+     * make arr[l] to arr[right] inclusive sorted
+     * @param arr
+     * @param tmp
+     * @param l
+     * @param mid
+     * @param right
+     */
+    static void merge(int[] arr, int[] tmp, int left, int mid, int right) {
+        System.arraycopy(arr, left, tmp, left, right - left + 1);
         int l = left, r = mid + 1;
         while (l <= mid && r <= right) {
-            if (helper[l] < helper[r]) {
-                array[left++] = helper[l++];
-            } else {
-                array[left++] = helper[r++];
-            }
+            if (tmp[l] < tmp[r]) arr[left++] = tmp[l++];
+            else arr[left++] = tmp[r++];
         }
         while (l <= mid) {
-            array[left++] = helper[l++];
+            arr[left++] = tmp[l++];
         }
+        // don't need copy r since r is already in the rest of array
+        /*
+        while (r <= right) {
+            arr[left++] = tmp[r++];
+        }
+        */
     }
 
     public static void main(String[] args) {
-        MergeSort ms = new MergeSort();
-        int[] retVal = ms.sort(new int[]{3,5,1,2,4,8});
+        int[] retVal = MergeSort.sort(new int[]{3,5,1,2,4,8});
         System.out.println(Arrays.toString(retVal));
     }
 }

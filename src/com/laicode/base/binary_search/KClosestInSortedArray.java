@@ -1,7 +1,5 @@
 package com.laicode.base.binary_search;
 
-import java.util.Arrays;
-
 /*
 Given a target integer T, a non-negative integer K and an integer array A sorted in ascending order,
 find the K closest numbers to T in A.

@@ -12,7 +12,7 @@ power(-2, 5) = -32
  */
 public class APowerOfB {
 
-    private long power(int a, int b) {
+    private static long power(int a, int b) {
         if (b == 0) return 1;
         if (a == 0) return 0;
         long res = power(a, b/2);
@@ -21,5 +21,9 @@ public class APowerOfB {
             res *=a;
         }
         return res;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(power(5, 2));
     }
 }

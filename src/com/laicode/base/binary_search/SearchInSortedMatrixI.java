@@ -1,8 +1,5 @@
 package com.laicode.base.binary_search;
 
-import java.util.Collection;
-import java.util.Collections;
-
 /*
 Given a 2D matrix that contains integers only, which each row is sorted in an ascending order.
 The first element of next row is larger than (or equal to) the last element of previous row.
