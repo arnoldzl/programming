@@ -27,7 +27,7 @@ public class MergeSort {
      * make arr[l] to arr[right] inclusive sorted
      * @param arr
      * @param tmp
-     * @param l
+     * @param left
      * @param mid
      * @param right
      */
